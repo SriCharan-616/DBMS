@@ -17,7 +17,7 @@ public class ManagePromotionalMenusDialog extends JDialog {
 
         // Database Connection
         try {
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1", "SYSTEM", "licet");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE", "SYSTEM", "licet");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Database Connection Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             return;

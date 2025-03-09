@@ -46,7 +46,7 @@ public class ManageRegularMenusDialog extends JDialog {
         try {
             // Establish Database Connection
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.18:1521:LICETORCL", "exam1", "licet");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE", "SYSTEM", "licet");
 
             // Fetch data from F_REGULAR_MENUS
             String query = "SELECT * FROM F_REGULAR_MENUS";

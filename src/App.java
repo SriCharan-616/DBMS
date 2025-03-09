@@ -23,7 +23,6 @@ public class App {
         JButton managePromotionalMenusButton = createButton("📢 Manage Promotional Menus", "ManagePromotionalMenus");
         JButton manageRegularMenusButton = createButton("📜 Manage Regular Menus", "ManageRegularMenus");
         JButton manageFoodItemsButton = createButton("🍽️ Manage Food Items", "ManageFoodItems");
-        JButton manageStaffsButton = createButton("👥 Manage Staffs", "ManageStaffs");
         JButton manageShiftAssignmentsButton = createButton("⏳ Manage Shift Assignments", "ManageShiftAssignments");
 
         // Add Action Listeners for Opening Dialogs
@@ -32,7 +31,6 @@ public class App {
         managePromotionalMenusButton.addActionListener(event -> handleButtonClick(event, frame));
         manageRegularMenusButton.addActionListener(event -> handleButtonClick(event, frame));
         manageFoodItemsButton.addActionListener(event -> handleButtonClick(event, frame));
-        manageStaffsButton.addActionListener(event -> handleButtonClick(event, frame));
         manageShiftAssignmentsButton.addActionListener(event -> handleButtonClick(event, frame));
 
         // Add Buttons to Panel
@@ -41,7 +39,6 @@ public class App {
         panel.add(managePromotionalMenusButton);
         panel.add(manageRegularMenusButton);
         panel.add(manageFoodItemsButton);
-        panel.add(manageStaffsButton);
         panel.add(manageShiftAssignmentsButton);
 
         // Add Panel to Frame

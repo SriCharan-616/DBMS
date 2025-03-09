@@ -75,7 +75,7 @@ public class AddCustomerDialog extends JDialog {
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1", "SYSTEM", "licet");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE", "SYSTEM", "licet");
 
             int newCustomerId = getNextCustomerId(connection);
 
@@ -111,7 +111,7 @@ public class AddCustomerDialog extends JDialog {
 
     private int getNextCustomerId(Connection connection) {
         int nextId = 1;
-        String query = "SELECT NVL(MAX(ID), 0) + 1 FROM F_CUSTOMERS";
+        String query = "SELECT NVL(MAX(ID), 0) + 1 FROM SYSTEM.F_CUSTOMERS";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             if (rs.next()) {

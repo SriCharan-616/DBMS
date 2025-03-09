@@ -95,7 +95,7 @@ public class ManageFoodItemsDialog extends JDialog {
     private void connectToDatabase() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1", "SYSTEM", "licet");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE", "SYSTEM", "licet");
             System.out.println("Database Connected Successfully!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Database Connection Failed!", "Error", JOptionPane.ERROR_MESSAGE);
