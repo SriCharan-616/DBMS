@@ -75,7 +75,7 @@ public class AddCustomerDialog extends JDialog {
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.18:1521:LICETORCL", "exam1", "licet");
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1", "SYSTEM", "licet");
 
             int newCustomerId = getNextCustomerId(connection);
 

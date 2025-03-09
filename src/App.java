@@ -1,3 +1,5 @@
+// Ensure the correct package based on your directory structure
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,7 +7,7 @@ import java.awt.event.ActionEvent;
 public class App {
     public static void main(String[] args) {
         // Create Main Frame
-        JFrame frame = new JFrame("Restaurant Management Sys");
+        JFrame frame = new JFrame("Restaurant Management System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Fullscreen mode
         frame.setLayout(new GridBagLayout());
@@ -81,106 +83,11 @@ public class App {
             case "ManageFoodItems":
                 new ManageFoodItemsDialog(parentFrame).setVisible(true);
                 break;
-            case "ManageStaffs":
-                new ManageStaffsDialog(parentFrame).setVisible(true);
-                break;
             case "ManageShiftAssignments":
                 new ManageShiftAssignmentsDialog(parentFrame).setVisible(true);
                 break;
             default:
                 System.out.println("Unknown button action: " + command);
         }
-    }
-}
-
-// ➤ Dialog Classes (For Different Features)
-class AddCustomerDialog extends JDialog {
-    public AddCustomerDialog(JFrame parent) {
-        super(parent, "Add Customer", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Add Customer Form Here", SwingConstants.CENTER), BorderLayout.CENTER);
-    }
-}
-
-class ViewOrdersDialog extends JDialog {
-    public ViewOrdersDialog(JFrame parent) {
-        super(parent, "View Orders", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Orders List Display Here", SwingConstants.CENTER), BorderLayout.CENTER);
-    }
-}
-
-class ManagePromotionalMenusDialog extends JDialog {
-    public ManagePromotionalMenusDialog(JFrame parent) {
-        super(parent, "Manage Promotional Menus", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Promotional Menus Here", SwingConstants.CENTER), BorderLayout.CENTER);
-    }
-}
-
-class ManageRegularMenusDialog extends JDialog {
-    public ManageRegularMenusDialog(JFrame parent) {
-        super(parent, "Manage Regular Menus", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Regular Menus Here", SwingConstants.CENTER), BorderLayout.CENTER);
-    }
-}
-
-class ManageFoodItemsDialog extends JDialog {
-    public ManageFoodItemsDialog(JFrame parent) {
-        super(parent, "Manage Food Items", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Food Items Management Here", SwingConstants.CENTER), BorderLayout.CENTER);
-    }
-}
-
-class ManageStaffsDialog extends JDialog {
-    public ManageStaffsDialog(JFrame parent) {
-        super(parent, "Manage Staffs", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Staff Management Here", SwingConstants.CENTER), BorderLayout.CENTER);
-    }
-}
-
-class ManageShiftAssignmentsDialog extends JDialog {
-    public ManageShiftAssignmentsDialog(JFrame parent) {
-        super(parent, "Manage Shift Assignments", true);
-        setupDialog();
-    }
-
-    private void setupDialog() {
-        setSize(400, 300);
-        setLocationRelativeTo(getParent());
-        add(new JLabel("Shift Assignments Here", SwingConstants.CENTER), BorderLayout.CENTER);
     }
 }

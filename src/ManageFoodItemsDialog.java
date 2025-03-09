@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class ManageFoodItemsDialog extends JDialog {
     private JTable foodItemsTable;
     private DefaultTableModel tableModel;

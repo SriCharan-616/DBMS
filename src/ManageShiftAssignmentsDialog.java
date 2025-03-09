@@ -2,7 +2,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class ManageShiftAssignmentsDialog extends JDialog {
     private JTable shiftAssignmentsTable;
     private DefaultTableModel tableModel;
