@@ -1,0 +1,156 @@
+
+CREATE TABLE  "F_CUSTOMERS"
+   ("ID" NUMBER(5,0),
+    "FIRST_NAME" VARCHAR2(25) CONSTRAINT "F_CSR_FIRST_NAME_NN" NOT NULL ENABLE,
+    "LAST_NAME" VARCHAR2(35) CONSTRAINT "F_CSR_LAST_NAME_NN" NOT NULL ENABLE,
+    "ADDRESS" VARCHAR2(50) CONSTRAINT "F_CSRS_ADDRESS_NN" NOT NULL ENABLE,
+    "CITY" VARCHAR2(30) CONSTRAINT "F_CSR_CITY_NN" NOT NULL ENABLE,
+    "STATE" VARCHAR2(20) CONSTRAINT "F_CSR_STATE_NN" NOT NULL ENABLE,
+    "ZIP" NUMBER(10,0) CONSTRAINT "F_CSR_ZIP_NN" NOT NULL ENABLE,
+    "PHONE_NUMBER" VARCHAR2(10) CONSTRAINT "F_CSR_PHONE_NUMB_NN" NOT NULL ENABLE,
+     CONSTRAINT "F_CSR_ID_PK" PRIMARY KEY ("ID")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_PROMOTIONAL_MENUS"
+   ("CODE" VARCHAR2(3),
+    "NAME" VARCHAR2(30) CONSTRAINT "F_PMU_NAME_NN" NOT NULL ENABLE,
+    "START_DATE" DATE CONSTRAINT "F_PMU_START_DATE_NN" NOT NULL ENABLE,
+    "END_DATE" DATE,
+    "GIVE_AWAY" VARCHAR2(80),
+     CONSTRAINT "F_PMU_CODE_PK" PRIMARY KEY ("CODE")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_REGULAR_MENUS"
+   ("CODE" VARCHAR2(3),
+    "TYPE" VARCHAR2(30) CONSTRAINT "F_RMU_TYPE_NN" NOT NULL ENABLE,
+    "HOURS_SERVED" VARCHAR2(30) CONSTRAINT "F_RMU_HOURS_SERVED_NN" NOT NULL ENABLE,
+     CONSTRAINT "F_RMU_CODE_PK" PRIMARY KEY ("CODE")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_FOOD_ITEMS"
+   ("FOOD_ITEM_NUMBER" NUMBER(5,0),
+    "DESCRIPTION" VARCHAR2(100) CONSTRAINT "F_FIM_DESC_NN" NOT NULL ENABLE,
+    "PRICE" NUMBER(8,2) CONSTRAINT "F_FIM_PRICE_NN" NOT NULL ENABLE,
+    "REGULAR_CODE" VARCHAR2(3),
+    "PROMO_CODE" VARCHAR2(3),
+     CONSTRAINT "F_FIM_FOOD_ITEM_NUMBER_PK" PRIMARY KEY ("FOOD_ITEM_NUMBER")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_STAFFS"
+   ("ID" NUMBER(5,0),
+    "FIRST_NAME" VARCHAR2(25) CONSTRAINT "F_STF_FIRST_NAME_NN" NOT NULL ENABLE,
+    "LAST_NAME" VARCHAR2(35) CONSTRAINT "F_STF_LAST_NAME_NN" NOT NULL ENABLE,
+    "BIRTHDATE" DATE CONSTRAINT "F_STF_BIRTHDATE_NN" NOT NULL ENABLE,
+    "SALARY" NUMBER(8,2) CONSTRAINT "F_STF_SALARY_NN" NOT NULL ENABLE,
+    "OVERTIME_RATE" NUMBER(5,2),
+    "TRAINING" VARCHAR2(50),
+    "STAFF_TYPE" VARCHAR2(20) CONSTRAINT "F_STF_STAFF_TYPE_NN" NOT NULL ENABLE,
+    "MANAGER_ID" NUMBER(5,0),
+    "MANAGER_BUDGET" NUMBER(8,2),
+    "MANAGER_TARGET" NUMBER(8,2),
+     CONSTRAINT "F_STF_ID_PK" PRIMARY KEY ("ID")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_ORDERS"
+   ("ORDER_NUMBER" NUMBER(5,0),
+    "ORDER_DATE" DATE CONSTRAINT "F_ODR_ORDER_DATE_NN" NOT NULL ENABLE,
+    "ORDER_TOTAL" NUMBER(8,2),
+    "CUST_ID" NUMBER(5,0) CONSTRAINT "F_ODR_CUST_ID_NN" NOT NULL ENABLE,
+    "STAFF_ID" NUMBER(5,0) CONSTRAINT "F_ODR_STAFF_ID_NN" NOT NULL ENABLE,
+     CONSTRAINT "F_ODR_ORDER_NUMBER_PK" PRIMARY KEY ("ORDER_NUMBER")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_ORDER_LINES"
+   ("ORDER_NUMBER" NUMBER(5,0),
+    "FOOD_ITEM_NUMBER" NUMBER(5,0),
+    "QUANTITY" NUMBER(3,0) CONSTRAINT "F_OLE_QUANTITY_NN" NOT NULL ENABLE,
+     CONSTRAINT "F_OLE_PK" PRIMARY KEY ("ORDER_NUMBER", "FOOD_ITEM_NUMBER")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_SHIFTS"
+   ("CODE" NUMBER(5,0),
+    "DESCRIPTION" VARCHAR2(100) CONSTRAINT "F_SFT_DESC_NN" NOT NULL ENABLE,
+     CONSTRAINT "F_SFT_CODE_PK" PRIMARY KEY ("CODE")
+  USING INDEX  ENABLE
+   );
+
+CREATE TABLE  "F_SHIFT_ASSIGNMENTS"
+   ("CODE" NUMBER(5,0),
+    "ID" NUMBER(5,0),
+    "SHIFT_ASSIGN_DATE" DATE CONSTRAINT "F_SAT_SHIFT_ASSIGN_DATE_NN" NOT NULL ENABLE,
+     CONSTRAINT "F_SAT_PK" PRIMARY KEY ("CODE", "ID")
+  USING INDEX  ENABLE
+   );
+
+ALTER TABLE  "F_FOOD_ITEMS" ADD CONSTRAINT "F_FIM_PROMO_CODE_FK" FOREIGN KEY ("PROMO_CODE")
+      REFERENCES  "F_PROMOTIONAL_MENUS" ("CODE") ENABLE;
+
+ALTER TABLE  "F_FOOD_ITEMS" ADD CONSTRAINT "F_FIM_REGULAR_CODE_FK" FOREIGN KEY ("REGULAR_CODE")
+      REFERENCES  "F_REGULAR_MENUS" ("CODE") ENABLE;
+
+ALTER TABLE  "F_ORDERS" ADD CONSTRAINT "F_ODR_CUST_ID_FK" FOREIGN KEY ("CUST_ID")
+      REFERENCES  "F_CUSTOMERS" ("ID") ENABLE;
+
+ALTER TABLE  "F_ORDERS" ADD CONSTRAINT "F_ODR_STAFF_ID_FK" FOREIGN KEY ("STAFF_ID")
+      REFERENCES  "F_STAFFS" ("ID") ENABLE;
+
+ALTER TABLE  "F_ORDER_LINES" ADD CONSTRAINT "F_OLE_FOOD_ITEM_NUMBER_FK" FOREIGN KEY ("FOOD_ITEM_NUMBER")
+      REFERENCES  "F_FOOD_ITEMS" ("FOOD_ITEM_NUMBER") ENABLE;
+
+ALTER TABLE  "F_ORDER_LINES" ADD CONSTRAINT "F_OLE_ORDER_NUMBER_FK" FOREIGN KEY ("ORDER_NUMBER")
+      REFERENCES  "F_ORDERS" ("ORDER_NUMBER") ENABLE;
+
+ALTER TABLE  "F_SHIFT_ASSIGNMENTS" ADD CONSTRAINT "F_SAT_CODE_FK" FOREIGN KEY ("CODE")
+      REFERENCES  "F_SHIFTS" ("CODE") ENABLE;
+
+ALTER TABLE  "F_SHIFT_ASSIGNMENTS" ADD CONSTRAINT "F_SAT_ID_FK" FOREIGN KEY ("ID")
+      REFERENCES  "F_STAFFS" ("ID") ENABLE;
+
+--Populate f_customer table
+INSERT INTO f_customers(id,first_name,last_name,address,city,state,zip,phone_number)
+VALUES(123,'Cole','Bee','123 Main Street','Orlando','FL',32838,'4075558234');
+INSERT INTO f_customers(id,first_name,last_name,address,city,state,zip,phone_number)
+VALUES(456,'Zoe','Twee','1009 Oliver Avenue','Boston','MA',12889,'7098675309');
+--Populate f_promotional_menus table
+INSERT INTO f_promotional_menus(code,name,start_date,end_date,give_away)
+VALUES('100','Back to School',TO_DATE('09-01-2004','mm-dd-yyyy'),TO_DATE('09-30-2004','mm-dd-yyyy'),'ballpen and highlighter');
+INSERT INTO f_promotional_menus(code,name,start_date,end_date,give_away)
+VALUES('110','Valentines Special',TO_DATE('02-10-2004','mm-dd-yyyy'),TO_DATE('02-15-2004','mm-dd-yyyy'),'small box of chocolates');
+--Populate f_regular_menus table
+INSERT INTO f_regular_menus(code,type,hours_served)
+VALUES('10','Breakfast','6-11am');
+INSERT INTO f_regular_menus(code,type,hours_served)
+VALUES('20','Lunch/Dinner','11-9pm');
+--Populate f_food_items table
+INSERT INTO f_food_items(food_item_number,description,price,regular_code,promo_code)
+VALUES(90,'Fries',1.09,'20',NULL);
+INSERT INTO f_food_items(food_item_number,description,price,regular_code,promo_code)
+VALUES(93,'Strawberry Shake',3.59,NULL,'110');
+--Populate f_staffs table
+INSERT INTO f_staffs(id,first_name,last_name,birthdate,salary,overtime_rate,training,staff_type,manager_id,manager_budget,manager_target)
+VALUES(12,'Sue','Doe',TO_DATE('07-01-1980','mm-dd-yyyy'),6.75,10.25,NULL,'Order Taker',19,NULL,NULL);
+INSERT INTO f_staffs(id,first_name,last_name,birthdate,salary,overtime_rate,training,staff_type,manager_id,manager_budget,manager_target)
+VALUES(9,'Bob','Miller',TO_DATE('03-19-1979','mm-dd-yyyy'),10,NULL,'Grill','Cook',19,NULL,NULL);
+INSERT INTO f_staffs(id,first_name,last_name,birthdate,salary,overtime_rate,training,staff_type,manager_id,manager_budget,manager_target)
+VALUES(19,'Monique','Tuttle',TO_DATE('03-30-1969','mm-dd-yyyy'),60,NULL,NULL,'Manager',NULL,50000,70000);
+--Populate f_orders table
+INSERT INTO f_orders(order_number,order_date,order_total,cust_id,staff_id)
+VALUES(5678,TO_DATE('12-10-2002','mm-dd-yyyy'),103.02,123,12);
+--Populate f_order_lines table
+INSERT INTO f_order_lines(order_number,food_item_number,quantity)
+VALUES(5678,90,2);
+--Populate f_shifts table
+INSERT INTO f_shifts(code,description)
+VALUES(1,'8am to 12pm');
+INSERT INTO f_shifts(code,description)
+VALUES(2,'6pm to 10pm');
+--Populate f_shift_assignments table
+INSERT INTO f_shift_assignments(code,id,shift_assign_date)
+VALUES(1,12,TO_DATE('05-06-2004','mm-dd-yyyy'));
